@@ -3,7 +3,7 @@
     class="desktop-file"
     @mousedown.stop="startDrag"
     :style="{ left: position.x + 'px', top: position.y + 'px' }"
-    @click="toggleHighlight"
+    @click="detectClick"
   >
     <div class="file-image">
       <img :src="highlightedImage" />
@@ -38,7 +38,8 @@ export default {
       dragOffset: { x: 0, y: 0 },
       fileIcon,
       fileIconHighlighted,
-      isHighlighted: false
+      isHighlighted: false,
+      numClicks: 0,
     }
   },
   computed: {
@@ -91,7 +92,26 @@ export default {
       if (!isFileIcon && !isCorrectlyNamed) {
         this.isHighlighted = false
       }
-    }
+    },
+    detectClick: function() {
+        this.numClicks++;
+        if (this.numClicks === 1) { 
+            var self = this;
+            this.toggleHighlight();
+            // if we recieve 2 clicks within .2 seconds, register as a double click.
+            setTimeout(function() {
+                switch(self.numClicks) { 
+                      case 1:
+                        console.log('One click');
+                        break;
+                      default:
+                        self.$emit('openFile')
+                        console.log('Double click');
+                }
+                self.numClicks = 0;
+            }, 200); // .2 second timer
+        }
+      }  
   },
   created() {
     document.addEventListener('click', this.handleClickOutside)
@@ -102,6 +122,9 @@ export default {
     document.removeEventListener('click', this.handleClickOutside)
     document.removeEventListener('mousemove', this.drag)
     document.removeEventListener('mouseup', this.stopDrag)
+  },
+  openFile() {
+    this.$emit('openFile', this.fileName)
   }
 }
 </script>

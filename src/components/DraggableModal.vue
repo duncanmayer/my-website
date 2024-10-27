@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="isVisible"
-    class="modal"
+    :class="['modal',modalClass]"
     :style="{ left: position.x + 'px', top: position.y + 'px' }"
     @mousedown.stop
     @mousedown="startDrag"
@@ -12,7 +12,7 @@
       <div class="decorative-rectangle"></div>
       <div class="button-container">
         <button @click="close">X</button>
-        <button @click="doNothing">◰</button>
+        <button @click="expand">◰</button>
       </div>
     </div>
     <div class="modal-wrapper">
@@ -36,6 +36,11 @@ export default {
     },
     bounds: {
       required: true
+    }, 
+    modalClass: {
+      type: String,
+      required: true,
+      default: ''
     }
   },
   data() {
@@ -45,12 +50,41 @@ export default {
         y: 100
       },
       isDragging: false,
-      dragOffset: { x: 0, y: 0 }
+      dragOffset: { x: 0, y: 0 },
+      isEnlarged: false
     }
   },
   methods: {
     close() {
       this.$emit('close')
+    },
+    expand() {
+      const modal = document.querySelector(`.modal.${this.modalClass}`);
+      if (modal) {
+        if (this.isEnlarged) {
+          modal.style.width = `${.60 * (this.bounds.right - this.bounds.left)}px`;
+          modal.style.height = `${.72 * (this.bounds.bottom - this.bounds.top)}px`;
+          this.isEnlarged = false;
+        } else {
+          let calcWidth = .70 * (this.bounds.right - this.bounds.left);
+          let calcHeight = .82 * (this.bounds.bottom - this.bounds.top);
+
+          // check if modal expands past rightward bound
+          if (calcWidth + this.position.x > this.bounds.right - this.bounds.left) {
+            modal.style.left = `${this.bounds.right - calcWidth}px`;
+          }
+
+          // check if modal expands past downward bound
+          if (calcHeight + this.position.y > this.bounds.bottom - this.bounds.top) {
+            modal.style.top = `${this.bounds.bottom - calcHeight}px`;
+          }
+
+          modal.style.width = `${calcWidth}px`;
+          modal.style.height = `${calcHeight}px`;
+          this.isEnlarged = true;
+        }
+  
+      }
     },
     startDrag(event) {
       this.isDragging = true
@@ -69,9 +103,6 @@ export default {
         const navBarHeight = 25
         const paddingSize = 50
 
-        // console.log(`parentBounds: ${JSON.stringify(this.bounds)}`)
-        // console.log(`selfBounds: ${JSON.stringify(selfBounds)}`)
-
         // note to self: fix this crazy calculation
         let newX = event.clientX - this.dragOffset.x
         newX = Math.max(2 * margin, newX)
@@ -81,13 +112,8 @@ export default {
         newY = Math.max(navBarHeight + margin, newY)
         newY = Math.min(this.bounds.bottom - selfBounds.height - (navBarHeight + paddingSize), newY)
 
-        // console.log(`newY finally is ${newY}`)
-        // Update position
         this.position.x = newX
         this.position.y = newY
-
-        // console.log('self:' + JSON.stringify(self.getBoundingClientRect()))
-        // console.log('bounds:' + JSON.stringify(this.bounds))
       }
     }
   },
@@ -113,6 +139,7 @@ export default {
   grid-template-rows: auto 1fr;
   font-family: 'Chicago', sans-serif;
   user-select: none;
+  color:black;
 }
 
 .modal-header {

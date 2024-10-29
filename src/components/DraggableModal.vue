@@ -60,30 +60,43 @@ export default {
     },
     expand() {
       const modal = document.querySelector(`.modal.${this.modalClass}`);
+      let clientX = this.position.x;
+      let clientY = this.position.y;
+      let margin = 25;
+
       if (modal) {
+        // needs to shrink
         if (this.isEnlarged) {
           modal.style.width = `${.60 * (this.bounds.right - this.bounds.left)}px`;
           modal.style.height = `${.72 * (this.bounds.bottom - this.bounds.top)}px`;
           this.isEnlarged = false;
+
+        // needs to expand
         } else {
           let calcWidth = .70 * (this.bounds.right - this.bounds.left);
           let calcHeight = .82 * (this.bounds.bottom - this.bounds.top);
 
           // check if modal expands past rightward bound
           if (calcWidth + this.position.x > this.bounds.right - this.bounds.left) {
-            modal.style.left = `${this.bounds.right - calcWidth}px`;
+            clientX = (this.bounds.right - this.bounds.left) - calcWidth - margin;
           }
 
           // check if modal expands past downward bound
           if (calcHeight + this.position.y > this.bounds.bottom - this.bounds.top) {
-            modal.style.top = `${this.bounds.bottom - calcHeight}px`;
+            clientY = (this.bounds.bottom - this.bounds.top) - calcHeight - margin;
           }
 
-          modal.style.width = `${calcWidth}px`;
-          modal.style.height = `${calcHeight}px`;
+          // force a rerender - found that modal would not immediately update size until
+          // an event triggered it.  We can either mimic mouse movement or rAF
+          requestAnimationFrame(() => {
+            modal.style.width = `${calcWidth}px`;
+            modal.style.height = `${calcHeight}px`;
+            this.position.x = clientX;
+            this.position.y = clientY;
+          });
+
           this.isEnlarged = true;
         }
-  
       }
     },
     startDrag(event) {
@@ -104,10 +117,12 @@ export default {
         const paddingSize = 50
 
         // note to self: fix this crazy calculation
+        // ensure that X value is within screen bounds
         let newX = event.clientX - this.dragOffset.x
         newX = Math.max(2 * margin, newX)
         newX = Math.min(this.bounds.right - this.bounds.left - selfBounds.width - 2 * margin, newX)
 
+        // ensure that Y value is within screen bounds
         let newY = event.clientY - this.dragOffset.y
         newY = Math.max(navBarHeight + margin, newY)
         newY = Math.min(this.bounds.bottom - selfBounds.height - (navBarHeight + paddingSize), newY)

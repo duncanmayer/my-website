@@ -9,12 +9,12 @@
     </NavBar>
 
     <DraggableModal
-      class="welcome"
+      modalClass="welcome"
+      title="Welcome! How did you get here?"
       :isVisible="isModalVisible.welcomeModal"
       :bounds="bounds"
-      title="Welcome! How did you get here?"
-      @close="toggleModal('welcomeModal')"
       :style="{ zIndex: getZIndex('welcomeModal') }"
+      @close="toggleModal('welcomeModal')"
       @click="setNewZIndex('welcomeModal')"
     >
       <p style="font-size: 14px; padding: 9px; overflow-y: auto; max-width: 100%; max-height: 100%">
@@ -34,11 +34,12 @@
     </DraggableModal>
 
     <DraggableModal
+      modalClass="review"
+      title="Review"
       :isVisible="isModalVisible.reviewModal"
       :bounds="bounds"
-      @close="toggleModal('reviewModal')"
-      title="Review"
       :style="{ zIndex: getZIndex('reviewModal') }"
+      @close="toggleModal('reviewModal')"
       @click="setNewZIndex('reviewModal')"
     >
       <h2>Leave a review!</h2>
@@ -48,11 +49,12 @@
     </DraggableModal>
 
     <DraggableModal
+      modalClass="contact"
+      title="Contact Me!"
       :isVisible="isModalVisible.contactModal"
       :bounds="bounds"
-      @close="toggleModal('contactModal')"
-      title="Contact Me!"
       :style="{ zIndex: getZIndex('contactModal') }"
+      @close="toggleModal('contactModal')"
       @click="setNewZIndex('contactModal')"
     >
       <div
@@ -73,7 +75,22 @@
       </div>
     </DraggableModal>
 
-    <DesktopFile :bounds="bounds" fileName="DuncanResume.pdf"> </DesktopFile>
+    <DesktopFile :bounds="bounds" 
+                 fileName="DuncanResume.pdf" 
+                 @openFile="toggleModal('resumeModal')"> </DesktopFile>
+
+    <DraggableModal modalClass="resume"
+                    title="My Resume"
+                    :bounds="bounds"
+                    :isVisible="isModalVisible.resumeModal"
+                    :style="{ zIndex: getZIndex('resumeModal') }"
+                    @close="toggleModal('resumeModal')"
+                    @click="setNewZIndex('resumeModal')">
+      <iframe src="/files/Duncan_Mayer_Resume.pdf#toolbar=0&view=FitH" 
+              style="font-size: 25px; overflow-y: auto; width: 100%; height: 100%; margin:0; border:none;"> 
+      </iframe>
+    </DraggableModal>
+
   </div>
 </template>
 
@@ -83,8 +100,8 @@ import NavBar from './components/NavBar.vue'
 import DraggableModal from './components/DraggableModal.vue'
 import DesktopFile from './components/DesktopFile.vue'
 
-let isModalVisible = ref({ welcomeModal: true, contactModal: false, reviewModal: false })
-let modalZIndices = ref({ welcomeModal: 1, contactModal: 1, reviewModal: 1 })
+let isModalVisible = ref({ welcomeModal: true, contactModal: false, reviewModal: false, resumeModal: false })
+let modalZIndices = ref({ welcomeModal: 1, contactModal: 1, reviewModal: 1, resumeModal: 1 })
 let bounds = ref({ width: 0, height: 0, top: 0, left: 0, right: 0, bottom: 0 })
 
 const updateDimensions = () => {

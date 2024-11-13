@@ -91,6 +91,10 @@
       </iframe>
     </DraggableModal>
 
+    <DesktopFile :bounds="bounds" 
+                 fileName="Writing" 
+                 @openFile="toggleModal('resumeModal')"> 
+                </DesktopFile>
   </div>
 </template>
 

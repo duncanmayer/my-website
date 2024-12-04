@@ -155,6 +155,7 @@ export default {
   height: 25px;
   width: 100%;
   display: flex;
+  user-select: none;
 }
 
 .navContainer {

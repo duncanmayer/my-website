@@ -180,39 +180,44 @@ const setNewZIndex = (modalType: string) => {
 
 const drawLoadingSquare = () => {
   let baseSize = 50
-  let euler = 2.7183
+  let numIterations = 10
   isLoadingSquareVisible.value = true
   loadingSquareStyle.value = {
     width: `${baseSize}px`,
     height: `${baseSize}px`,
     backgroundColor: 'transparent',
-    border: `7px solid black`,
+    border: `5px solid black`,
     position: 'absolute',
     top: `${40 + baseSize / 2}px`,
     left: `${20 + baseSize / 2}px`,
     zIndex: 1000
   }
-  for (let i = 1; i < 5; i++) {
+  for (let i = 1; i < numIterations; i++) {
+    // this is TEMPORARY until i can figure out an equation for it
+    let tops = [30, 100, 140, 145, 180, 195, 210, 210, 210]
+    let lefts = [70, 85, 100, 125, 150, 195, 240, 260, 280]
     setTimeout(() => {
       loadingSquareStyle.value = {
         // these size increases can stay constant but i want top and left to curve instead of linearly increase
-        width: `${40 * (i + 1) + 2 * baseSize}px`,
-        height: `${40 * (i + 1) + 2 * baseSize}px`,
+        // width: `${50 * 1.2 ** i + 2 * baseSize}px`,
+        width: `${50 * (i - 1) + baseSize}px`,
+        // height: `${35 * 1.2 ** i + 2 * baseSize}px`,
+        height: `${35 * (i - 1) + baseSize}px`,
         backgroundColor: 'transparent',
-        border: `7px solid black`,
+        border: `5px solid black`,
         position: 'absolute',
-        top: `${1.5 * euler ** (1.2 * i) + 100}px`,
-        left: `${1.7 * euler ** (1.2 * i) + 100}px`,
+        top: `${tops[i]}px`,
+        left: `${lefts[i]}px`,
         zIndex: 1000
       }
 
       // Hide the square after the last animation step
-      if (i === 4) {
+      if (i === numIterations - 1) {
         setTimeout(() => {
           isLoadingSquareVisible.value = false
         }, 100)
       }
-    }, 100 * i)
+    }, 50 * i)
   }
 }
 

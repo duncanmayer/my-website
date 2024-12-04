@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="isVisible"
-    :class="['modal',modalClass]"
+    :class="['modal', modalClass]"
     :style="{ left: position.x + 'px', top: position.y + 'px' }"
     @mousedown.stop
     @mousedown="startDrag"
@@ -36,7 +36,7 @@ export default {
     },
     bounds: {
       required: true
-    }, 
+    },
     modalClass: {
       type: String,
       required: true,
@@ -59,43 +59,43 @@ export default {
       this.$emit('close')
     },
     expand() {
-      const modal = document.querySelector(`.modal.${this.modalClass}`);
-      let clientX = this.position.x;
-      let clientY = this.position.y;
-      let margin = 25;
+      const modal = document.querySelector(`.modal.${this.modalClass}`)
+      let clientX = this.position.x
+      let clientY = this.position.y
+      let margin = 25
 
       if (modal) {
         // needs to shrink
         if (this.isEnlarged) {
-          modal.style.width = `${.60 * (this.bounds.right - this.bounds.left)}px`;
-          modal.style.height = `${.72 * (this.bounds.bottom - this.bounds.top)}px`;
-          this.isEnlarged = false;
+          modal.style.width = `${0.6 * (this.bounds.right - this.bounds.left)}px`
+          modal.style.height = `${0.72 * (this.bounds.bottom - this.bounds.top)}px`
+          this.isEnlarged = false
 
-        // needs to expand
+          // needs to expand
         } else {
-          let calcWidth = .70 * (this.bounds.right - this.bounds.left);
-          let calcHeight = .82 * (this.bounds.bottom - this.bounds.top);
+          let calcWidth = 0.7 * (this.bounds.right - this.bounds.left)
+          let calcHeight = 0.82 * (this.bounds.bottom - this.bounds.top)
 
           // check if modal expands past rightward bound
           if (calcWidth + this.position.x > this.bounds.right - this.bounds.left) {
-            clientX = (this.bounds.right - this.bounds.left) - calcWidth - margin;
+            clientX = this.bounds.right - this.bounds.left - calcWidth - margin
           }
 
           // check if modal expands past downward bound
           if (calcHeight + this.position.y > this.bounds.bottom - this.bounds.top) {
-            clientY = (this.bounds.bottom - this.bounds.top) - calcHeight - margin;
+            clientY = this.bounds.bottom - this.bounds.top - calcHeight - margin
           }
 
           // force a rerender - found that modal would not immediately update size until
           // an event triggered it.  We can either mimic mouse movement or rAF
           requestAnimationFrame(() => {
-            modal.style.width = `${calcWidth}px`;
-            modal.style.height = `${calcHeight}px`;
-            this.position.x = clientX;
-            this.position.y = clientY;
-          });
+            modal.style.width = `${calcWidth}px`
+            modal.style.height = `${calcHeight}px`
+            this.position.x = clientX
+            this.position.y = clientY
+          })
 
-          this.isEnlarged = true;
+          this.isEnlarged = true
         }
       }
     },
@@ -154,7 +154,7 @@ export default {
   grid-template-rows: auto 1fr;
   font-family: 'Chicago', sans-serif;
   user-select: none;
-  color:black;
+  color: black;
 }
 
 .modal-header {

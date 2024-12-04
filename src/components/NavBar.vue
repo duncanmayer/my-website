@@ -1,8 +1,8 @@
 <template>
   <div class="navigationBar">
     <ul class="navContainer">
-      <li><local-icon src="fruit_logo.png" width="20px" height="20px" /></li>
-      <li class="btn">
+      <li class="navElement"><local-icon src="fruit_logo.png" width="20px" height="20px" /></li>
+      <li class="btn navElement">
         <button
           @click="toggleDropdown('fileDropdown')"
           :class="{ highlighted: isHighlighted('fileDropdown') }"
@@ -10,42 +10,61 @@
           File
         </button>
         <div v-if="activeDropdown === 'fileDropdown'" class="dropdown">
-          <button @click="performAction('New')">New</button>
-          <button @click="performAction('Open')">Open</button>
-          <button @click="performAction('Save')">Save</button>
+          <button class="dropdownElement" @click="performAction('New')">New</button>
+          <button class="dropdownElement" @click="performAction('Open')">Open</button>
+          <button class="dropdownElement" @click="performAction('Save')">Save</button>
         </div>
       </li>
-      <li class="btn">
-        <button
-          @click="toggleDropdown('toolsDropdown')"
-          :class="{ highlighted: isHighlighted('toolsDropdown') }"
-        >
-          Tools
-        </button>
-        <div v-if="activeDropdown === 'toolsDropdown'" class="dropdown">
-          <button @click="performAction('OpenPaint')">Paint</button>
-          <button @click="performAction('OpenNotes')">Notes</button>
-          <button @click="performAction('FindFun')">Fun</button>
-        </div>
-      </li>
-      <li class="btn">
-        <button
-          @click="toggleDropdown('helpDropdown')"
-          :class="{ highlighted: isHighlighted('helpDropdown') }"
-        >
-          Help
-        </button>
-        <div v-if="activeDropdown === 'helpDropdown'" class="dropdown">
-          <button @click="performAction('FAQ')">FAQ</button>
-          <button @click="emit('toggleReview')">Review</button>
-          <button @click="emit('toggleContact')">Contact</button>
-          <button @click="emit('toggleWelcome')">Welcome</button>
-        </div>
-      </li>
-      <li class="user-profile-pic">
+      <div v-if="isInFile">
+        <li class="btn navElement">
+          <button
+            @click="toggleDropdown('editDropdown')"
+            :class="{ highlighted: isHighlighted('editDropdown') }"
+          >
+            Edit
+          </button>
+          <div v-if="activeDropdown === 'editDropdown'" class="dropdown">
+            <button class="dropdownElement" @click="performAction('Undo')">Undo</button>
+            <button class="dropdownElement" @click="performAction('ShowClipboard')">
+              Clipboard
+            </button>
+            <button class="dropdownElement" @click="performAction('SelectAll')">SelectAll</button>
+          </div>
+        </li>
+      </div>
+      <div v-else>
+        <li class="btn navElement">
+          <button
+            @click="toggleDropdown('toolsDropdown')"
+            :class="{ highlighted: isHighlighted('toolsDropdown') }"
+          >
+            Tools
+          </button>
+          <div v-if="activeDropdown === 'toolsDropdown'" class="dropdown">
+            <button class="dropdownElement" @click="performAction('OpenPaint')">Paint</button>
+            <button class="dropdownElement" @click="performAction('OpenNotes')">Notes</button>
+            <button class="dropdownElement" @click="performAction('FindFun')">Fun</button>
+          </div>
+        </li>
+        <li class="btn navElement">
+          <button
+            @click="toggleDropdown('helpDropdown')"
+            :class="{ highlighted: isHighlighted('helpDropdown') }"
+          >
+            Help
+          </button>
+          <div v-if="activeDropdown === 'helpDropdown'" class="dropdown">
+            <button class="dropdownElement" @click="performAction('FAQ')">FAQ</button>
+            <button class="dropdownElement" @click="emit('toggleReview')">Review</button>
+            <button class="dropdownElement" @click="emit('toggleContact')">Contact</button>
+            <button class="dropdownElement" @click="emit('toggleWelcome')">Welcome</button>
+          </div>
+        </li>
+      </div>
+      <li class="user-profile-pic navElement">
         <img :src="profilePhoto" alt="User Profile Photo" />
       </li>
-      <li class="time">{{ currentTime }}</li>
+      <li class="time navElement">{{ currentTime }}</li>
     </ul>
   </div>
 </template>
@@ -60,6 +79,12 @@ export default {
       activeDropdown: null,
       currentTime: '',
       profilePhoto
+    }
+  },
+  props: {
+    isInFile: {
+      type: Boolean,
+      required: false
     }
   },
   components: {
@@ -115,7 +140,7 @@ export default {
   transition: all 0.3s ease;
 }
 
-.navContainer .dropdown > button {
+.navContainer .dropdown .dropdownElement {
   display: block;
   padding: 5px 10px 10px 10px;
   border: none;
@@ -142,7 +167,7 @@ export default {
   z-index: 1000;
 }
 
-.navContainer > li {
+.navContainer .navElement {
   display: inline;
   float: left;
   color: black;
@@ -152,7 +177,7 @@ export default {
   font-size: 20px;
 }
 
-.navContainer > li > button {
+.navContainer .dropdownElement {
   display: inline;
   float: left;
   padding: 3px 15px 0px 15px;

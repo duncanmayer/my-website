@@ -2,11 +2,15 @@
   <div class="app">
     <NavBar
       class="navBar"
+      :isInFile="isInFile"
       @toggleWelcome="toggleModal('welcomeModal')"
       @toggleContact="toggleModal('contactModal')"
       @toggleReview="toggleModal('reviewModal')"
     >
     </NavBar>
+
+    <!-- this is a cheesy way of mimicking the expanding squares that appear as a file is loading -->
+    <div class="loadingSquare" v-if="isLoadingSquareVisible" :style="loadingSquareStyle"></div>
 
     <DraggableModal
       modalClass="welcome"
@@ -76,20 +80,16 @@
       </div>
     </DraggableModal>
 
-    <DesktopFile
-      :bounds="bounds"
-      fileName="DuncanResume.pdf"
-      @openFile="toggleModal('resumeModal')"
-    >
+    <DesktopFile :bounds="bounds" fileName="DuncanResume.pdf" @openFile="toggleFile('resumeModal')">
     </DesktopFile>
 
-    <DraggableModal
+    <FileDisplay
       modalClass="resume"
       title="My Resume"
       :bounds="bounds"
       :isVisible="isModalVisible.resumeModal"
       :style="{ zIndex: getZIndex('resumeModal') }"
-      @close="toggleModal('resumeModal')"
+      @close="toggleFile('resumeModal')"
       @click="setNewZIndex('resumeModal')"
     >
       <iframe
@@ -104,7 +104,7 @@
         "
       >
       </iframe>
-    </DraggableModal>
+    </FileDisplay>
   </div>
 </template>
 
@@ -112,6 +112,7 @@
 import { onBeforeMount, ref } from 'vue'
 import NavBar from './components/NavBar.vue'
 import DraggableModal from './components/DraggableModal.vue'
+import FileDisplay from './components/FileDisplay.vue'
 import DesktopFile from './components/DesktopFile.vue'
 
 let isModalVisible = ref({
@@ -122,6 +123,10 @@ let isModalVisible = ref({
 })
 let modalZIndices = ref({ welcomeModal: 1, contactModal: 1, reviewModal: 1, resumeModal: 1 })
 let bounds = ref({ width: 0, height: 0, top: 0, left: 0, right: 0, bottom: 0 })
+let isInFile = ref(false)
+
+let isLoadingSquareVisible = ref(false)
+let loadingSquareStyle = ref({})
 
 const updateDimensions = () => {
   const myElement = document.querySelector('#app')
@@ -151,6 +156,19 @@ const toggleModal = (modalType: string) => {
   }
 }
 
+const toggleFile = (file: string) => {
+  if (!isInFile.value) {
+    drawLoadingSquare()
+    setTimeout(() => {
+      isInFile.value = !isInFile.value
+      toggleModal(file)
+    }, 700)
+  } else {
+    isInFile.value = !isInFile.value
+    toggleModal(file)
+  }
+}
+
 const getZIndex = (modalType: string) => {
   return modalZIndices.value[modalType]
 }
@@ -158,6 +176,44 @@ const getZIndex = (modalType: string) => {
 const setNewZIndex = (modalType: string) => {
   const maxZIndex = Math.max(...Object.values(modalZIndices.value), 0)
   modalZIndices.value[modalType] = maxZIndex + 1
+}
+
+const drawLoadingSquare = () => {
+  let baseSize = 50
+  let euler = 2.7183
+  isLoadingSquareVisible.value = true
+  loadingSquareStyle.value = {
+    width: `${baseSize}px`,
+    height: `${baseSize}px`,
+    backgroundColor: 'transparent',
+    border: `7px solid black`,
+    position: 'absolute',
+    top: `${40 + baseSize / 2}px`,
+    left: `${20 + baseSize / 2}px`,
+    zIndex: 1000
+  }
+  for (let i = 1; i < 5; i++) {
+    setTimeout(() => {
+      loadingSquareStyle.value = {
+        // these size increases can stay constant but i want top and left to curve instead of linearly increase
+        width: `${40 * (i + 1) + 2 * baseSize}px`,
+        height: `${40 * (i + 1) + 2 * baseSize}px`,
+        backgroundColor: 'transparent',
+        border: `7px solid black`,
+        position: 'absolute',
+        top: `${1.5 * euler ** (1.2 * i) + 100}px`,
+        left: `${1.7 * euler ** (1.2 * i) + 100}px`,
+        zIndex: 1000
+      }
+
+      // Hide the square after the last animation step
+      if (i === 4) {
+        setTimeout(() => {
+          isLoadingSquareVisible.value = false
+        }, 100)
+      }
+    }, 100 * i)
+  }
 }
 
 onBeforeMount(() => {

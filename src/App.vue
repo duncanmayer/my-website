@@ -17,20 +17,20 @@
       @close="toggleModal('welcomeModal')"
       @click="setNewZIndex('welcomeModal')"
     >
-      <p style="font-size: 14px; padding: 9px; overflow-y: auto; max-width: 100%; max-height: 100%">
-        It seems you've managed to stumble upon me.. I'm Duncan's computer!! <br />
-        Whether the year is 1986 and you saved up all your summer-job money to buy this thing new,
+      <div
+        style="font-size: 20px; padding: 9px; overflow-y: auto; max-width: 100%; max-height: 100%"
+      >
+        Whether the year is 1986 and you saved up all your summer-job money to buy this thing 'new',
         or just pulled some dusty computer parts out of a sleepy Goodwill in the sticks and taped it
         all together, welcome! Pardon the glitches, my motherboard's seen better days. :]
         <br /><br />
-        Why not play around with some of the most exciting parts of my functionality? All my popups
-        can move around the screen. It's so much fun to make them dance and wiggle! In my topward
-        bar, you can open new windows and interact with my systems as much as you want. There might
-        even be some games up there!
-
+        Why not play around with my features? All my popups move around the screen. It's so much fun
+        to make them dance around! In my topward bar, you can open new windows and interact with my
+        systems as much as you want. There might even be some games up there! Not right now, but one
+        day..
         <br /><br />
         Have fun and enjoy! If you're here, just know I love you!!
-      </p>
+      </div>
     </DraggableModal>
 
     <DraggableModal
@@ -58,7 +58,7 @@
       @click="setNewZIndex('contactModal')"
     >
       <div
-        style="font-size: 25px; padding: 7px; overflow-y: auto; max-width: 100%; max-height: 100%"
+        style="font-size: 20px; padding: 7px; overflow-y: auto; max-width: 100%; max-height: 100%"
       >
         <p>
           Oh hi! You want to get in touch with me (Duncan)? I love the sound of that! Here are a
@@ -68,29 +68,43 @@
           <li>Email: mayer.du@northeastern.edu</li>
           <li>Phone: 978-818-3526</li>
           <li>
-            Smoke Signal: On the 25th day of the 11th month, atop Fort Hill in Boston, release 3
-            evenly spaced smoke clouds. I will be ready.
+            Smoke Signal: On the 3rd day after a new moon, atop Boston's Fort Hill, release 3 smoke
+            clouds. I'll see.
           </li>
+          <li>Come To My House: we could hang out and watch videos together</li>
         </ul>
       </div>
     </DraggableModal>
 
-    <DesktopFile :bounds="bounds" 
-                 fileName="DuncanResume.pdf" 
-                 @openFile="toggleModal('resumeModal')"> </DesktopFile>
+    <DesktopFile
+      :bounds="bounds"
+      fileName="DuncanResume.pdf"
+      @openFile="toggleModal('resumeModal')"
+    >
+    </DesktopFile>
 
-    <DraggableModal modalClass="resume"
-                    title="My Resume"
-                    :bounds="bounds"
-                    :isVisible="isModalVisible.resumeModal"
-                    :style="{ zIndex: getZIndex('resumeModal') }"
-                    @close="toggleModal('resumeModal')"
-                    @click="setNewZIndex('resumeModal')">
-      <iframe src="/files/Duncan_Mayer_Resume.pdf#toolbar=0&view=FitH" 
-              style="font-size: 25px; overflow-y: auto; width: 100%; height: 100%; margin:0; border:none;"> 
+    <DraggableModal
+      modalClass="resume"
+      title="My Resume"
+      :bounds="bounds"
+      :isVisible="isModalVisible.resumeModal"
+      :style="{ zIndex: getZIndex('resumeModal') }"
+      @close="toggleModal('resumeModal')"
+      @click="setNewZIndex('resumeModal')"
+    >
+      <iframe
+        src="/files/Duncan_Mayer_Resume.pdf#toolbar=0&view=FitH"
+        style="
+          font-size: 25px;
+          overflow-y: auto;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          border: none;
+        "
+      >
       </iframe>
     </DraggableModal>
-
   </div>
 </template>
 
@@ -100,7 +114,12 @@ import NavBar from './components/NavBar.vue'
 import DraggableModal from './components/DraggableModal.vue'
 import DesktopFile from './components/DesktopFile.vue'
 
-let isModalVisible = ref({ welcomeModal: true, contactModal: false, reviewModal: false, resumeModal: false })
+let isModalVisible = ref({
+  welcomeModal: true,
+  contactModal: false,
+  reviewModal: false,
+  resumeModal: false
+})
 let modalZIndices = ref({ welcomeModal: 1, contactModal: 1, reviewModal: 1, resumeModal: 1 })
 let bounds = ref({ width: 0, height: 0, top: 0, left: 0, right: 0, bottom: 0 })
 

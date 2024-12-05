@@ -1,7 +1,7 @@
 <template>
   <div class="navigationBar">
     <ul class="navContainer">
-      <li><local-icon src="fruit_logo.png" width="20px" height="20px" /></li>
+      <li><local-icon src="../assets/icons/fruit_logo.png" width="20px" height="20px" /></li>
       <li class="btn">
         <button
           @click="toggleDropdown('fileDropdown')"

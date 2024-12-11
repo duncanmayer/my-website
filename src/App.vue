@@ -127,7 +127,7 @@ import NavBar from './components/NavBar.vue'
 import DraggableModal from './components/DraggableModal.vue'
 import FileDisplay from './components/FileDisplay.vue'
 import DesktopFile from './components/DesktopFile.vue'
-import TrashPhoto from './assets/fileIcons/Trash_32x32x32.jpg'
+import TrashPhoto from './assets/icons/sad_finder.png'
 
 let isModalVisible = ref({
   welcomeModal: true,

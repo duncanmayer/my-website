@@ -10,9 +10,9 @@
           File
         </button>
         <div v-if="activeDropdown === 'fileDropdown'" class="dropdown">
-          <button class="dropdownElement" @click="performAction('New')">New</button>
-          <button class="dropdownElement" @click="performAction('Open')">Open</button>
-          <button class="dropdownElement" @click="performAction('Save')">Save</button>
+          <button class="dropdownElement" @click="emit('toggleNotImplemented')">New</button>
+          <button class="dropdownElement" @click="emit('toggleNotImplemented')">Open</button>
+          <button class="dropdownElement" @click="emit('toggleNotImplemented')">Save</button>
         </div>
       </li>
       <div v-if="isInFile">
@@ -24,11 +24,9 @@
             Edit
           </button>
           <div v-if="activeDropdown === 'editDropdown'" class="dropdown">
-            <button class="dropdownElement" @click="performAction('Undo')">Undo</button>
-            <button class="dropdownElement" @click="performAction('ShowClipboard')">
-              Clipboard
-            </button>
-            <button class="dropdownElement" @click="performAction('SelectAll')">SelectAll</button>
+            <button class="dropdownElement" @click="emit('toggleNotImplemented')">Undo</button>
+            <button class="dropdownElement" @click="emit('toggleNotImplemented')">Clipboard</button>
+            <button class="dropdownElement" @click="emit('toggleNotImplemented')">SelectAll</button>
           </div>
         </li>
       </div>
@@ -41,9 +39,9 @@
             Tools
           </button>
           <div v-if="activeDropdown === 'toolsDropdown'" class="dropdown">
-            <button class="dropdownElement" @click="performAction('OpenPaint')">Paint</button>
-            <button class="dropdownElement" @click="performAction('OpenNotes')">Notes</button>
-            <button class="dropdownElement" @click="performAction('FindFun')">Fun</button>
+            <button class="dropdownElement" @click="emit('toggleNotImplemented')">Paint</button>
+            <button class="dropdownElement" @click="emit('toggleNotImplemented')">Notes</button>
+            <button class="dropdownElement" @click="emit('toggleNotImplemented')">Fun</button>
           </div>
         </li>
         <li class="btn navElement">
@@ -54,7 +52,7 @@
             Help
           </button>
           <div v-if="activeDropdown === 'helpDropdown'" class="dropdown">
-            <button class="dropdownElement" @click="performAction('FAQ')">FAQ</button>
+            <button class="dropdownElement" @click="emit('toggleNotImplemented')">FAQ</button>
             <button class="dropdownElement" @click="emit('toggleReview')">Review</button>
             <button class="dropdownElement" @click="emit('toggleContact')">Contact</button>
             <button class="dropdownElement" @click="emit('toggleWelcome')">Welcome</button>
@@ -93,7 +91,6 @@ export default {
   methods: {
     emit(toToggle) {
       this.activeDropdown = null
-      console.log(`Emitting from nav ${toToggle}`)
       this.$emit(toToggle)
     },
     handleClickOutside(event) {
@@ -111,7 +108,6 @@ export default {
       this.currentTime = `${hours}:${minutes}`
     },
     toggleDropdown(dropdown) {
-      console.log(`toggling ${dropdown}`)
       this.activeDropdown = this.activeDropdown === dropdown ? null : dropdown
     },
     performAction(action) {

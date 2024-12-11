@@ -8,10 +8,8 @@
       width: bounds.width - 20 + 'px',
       height: bounds.height - 45 + 'px'
     }"
-    @mousedown.stop
-    @mousedown="startDrag"
   >
-    <div class="modal-header" @mousedown.stop @mousedown="startDrag">
+    <div class="modal-header">
       <div class="decorative-rectangle"></div>
       <h2>{{ title }}</h2>
       <div class="decorative-rectangle"></div>
@@ -57,7 +55,6 @@ export default {
   },
   methods: {
     close() {
-      console.log(`bounds is ${JSON.stringify(this.bounds)}`)
       this.$emit('close')
     }
   }

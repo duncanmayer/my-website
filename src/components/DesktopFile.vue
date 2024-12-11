@@ -39,7 +39,7 @@ export default {
       fileIcon,
       fileIconHighlighted,
       isHighlighted: false,
-      numClicks: 0,
+      numClicks: 0
     }
   },
   computed: {
@@ -88,30 +88,27 @@ export default {
     handleClickOutside(event) {
       const isFileIcon = event.target.closest('.desktop-file')
       const isCorrectlyNamed = event.target.closest(`.${this.fileName}`)
-      console.log(`isFileIcon:${isFileIcon}, isCorrectlyNamed:${isCorrectlyNamed}`)
       if (!isFileIcon && !isCorrectlyNamed) {
         this.isHighlighted = false
       }
     },
-    detectClick: function() {
-        this.numClicks++;
-        if (this.numClicks === 1) { 
-            var self = this;
-            this.toggleHighlight();
-            // if we recieve 2 clicks within .2 seconds, register as a double click.
-            setTimeout(function() {
-                switch(self.numClicks) { 
-                      case 1:
-                        console.log('One click');
-                        break;
-                      default:
-                        self.$emit('openFile')
-                        console.log('Double click');
-                }
-                self.numClicks = 0;
-            }, 200); // .2 second timer
-        }
-      }  
+    detectClick: function () {
+      this.numClicks++
+      if (this.numClicks === 1) {
+        var self = this
+        this.toggleHighlight()
+        // if we recieve 2 clicks within .2 seconds, register as a double click.
+        setTimeout(function () {
+          switch (self.numClicks) {
+            case 1:
+              break
+            default:
+              self.$emit('openFile')
+          }
+          self.numClicks = 0
+        }, 200) // .2 second timer
+      }
+    }
   },
   created() {
     document.addEventListener('click', this.handleClickOutside)

@@ -6,6 +6,7 @@
       @toggleWelcome="toggleModal('welcomeModal')"
       @toggleContact="toggleModal('contactModal')"
       @toggleReview="toggleModal('reviewModal')"
+      @toggleNotImplemented="toggleModal('notImplementedModal')"
     >
     </NavBar>
 
@@ -50,6 +51,18 @@
       <p>Make sure you're nice...</p>
       <p><input type="text" id="textInput" placeholder="Type here..." /></p>
       <button>Submit!!!</button>
+    </DraggableModal>
+
+    <DraggableModal
+      modalClass="notImplemented"
+      title="Oops!  This isn't implemented yet"
+      :isVisible="isModalVisible.notImplementedModal"
+      :bounds="bounds"
+      :style="{ zIndex: getZIndex('notImplementedModal') }"
+      @close="toggleModal('notImplementedModal')"
+      @click="setNewZIndex('notImplementedModal')"
+    >
+      <iframe :src="TrashPhoto" style="width: 100%; height: 100%"> nothing here lol</iframe>
     </DraggableModal>
 
     <DraggableModal
@@ -114,14 +127,22 @@ import NavBar from './components/NavBar.vue'
 import DraggableModal from './components/DraggableModal.vue'
 import FileDisplay from './components/FileDisplay.vue'
 import DesktopFile from './components/DesktopFile.vue'
+import TrashPhoto from './assets/fileIcons/Trash_32x32x32.jpg'
 
 let isModalVisible = ref({
   welcomeModal: true,
   contactModal: false,
   reviewModal: false,
-  resumeModal: false
+  resumeModal: false,
+  notImplementedModal: false
 })
-let modalZIndices = ref({ welcomeModal: 1, contactModal: 1, reviewModal: 1, resumeModal: 1 })
+let modalZIndices = ref({
+  welcomeModal: 1,
+  contactModal: 1,
+  reviewModal: 1,
+  resumeModal: 1,
+  notImplementedModal: 1
+})
 let bounds = ref({ width: 0, height: 0, top: 0, left: 0, right: 0, bottom: 0 })
 let isInFile = ref(false)
 
@@ -157,13 +178,16 @@ const toggleModal = (modalType: string) => {
 }
 
 const toggleFile = (file: string) => {
+  // if you are opening the file, draw the animation
+  // of the expanding box
   if (!isInFile.value) {
     drawLoadingSquare()
     setTimeout(() => {
       isInFile.value = !isInFile.value
       toggleModal(file)
     }, 700)
-  } else {
+  } // don't render animation on closing file
+  else {
     isInFile.value = !isInFile.value
     toggleModal(file)
   }
@@ -194,24 +218,23 @@ const drawLoadingSquare = () => {
   }
   for (let i = 1; i < numIterations; i++) {
     // this is TEMPORARY until i can figure out an equation for it
-    let tops = [30, 100, 140, 145, 180, 195, 210, 210, 210]
-    let lefts = [70, 85, 100, 125, 150, 195, 240, 260, 280]
+    let tops = [30, 70, 90, 120, 140, 150, 150, 150, 150]
+    let lefts = [70, 85, 100, 125, 150, 195, 230, 240, 250]
     setTimeout(() => {
       loadingSquareStyle.value = {
         // these size increases can stay constant but i want top and left to curve instead of linearly increase
         // width: `${50 * 1.2 ** i + 2 * baseSize}px`,
-        width: `${50 * (i - 1) + baseSize}px`,
+        width: `${Math.min(50 * (i - 1) + baseSize, bounds.value.width - 125)}px`,
         // height: `${35 * 1.2 ** i + 2 * baseSize}px`,
-        height: `${35 * (i - 1) + baseSize}px`,
+        height: `${Math.min(35 * (i - 1) + baseSize, bounds.value.height - 100)}px`,
         backgroundColor: 'transparent',
         border: `5px solid black`,
         position: 'absolute',
-        top: `${tops[i]}px`,
-        left: `${lefts[i]}px`,
+        top: `${tops[i] * (bounds.value.height / 550)}px`,
+        left: `${lefts[i] * (bounds.value.width / 1000)}px`,
         zIndex: 1000
       }
 
-      // Hide the square after the last animation step
       if (i === numIterations - 1) {
         setTimeout(() => {
           isLoadingSquareVisible.value = false

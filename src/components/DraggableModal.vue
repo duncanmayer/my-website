@@ -109,6 +109,8 @@ export default {
     },
     drag(event) {
       if (this.isDragging) {
+        // Might be a bug here.  Select based on ModalClass prop rather than just modal class
+        // A result of all modals previously having fixed
         const self = document.querySelector('.modal')
         const selfBounds = self.getBoundingClientRect()
 

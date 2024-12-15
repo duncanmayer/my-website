@@ -62,7 +62,7 @@
       @close="toggleModal('notImplementedModal')"
       @click="setNewZIndex('notImplementedModal')"
     >
-      <iframe :src="TrashPhoto" style="width: 100%; height: 100%"> nothing here lol</iframe>
+      <iframe :src="DoesNotExist" style="width: 100%; height: 100%"> nothing here lol</iframe>
     </DraggableModal>
 
     <DraggableModal
@@ -127,7 +127,7 @@ import NavBar from './components/NavBar.vue'
 import DraggableModal from './components/DraggableModal.vue'
 import FileDisplay from './components/FileDisplay.vue'
 import DesktopFile from './components/DesktopFile.vue'
-import TrashPhoto from './assets/icons/sad_finder.png'
+import DoesNotExist from './assets/icons/sad_finder.png'
 
 let isModalVisible = ref({
   welcomeModal: true,
@@ -137,7 +137,7 @@ let isModalVisible = ref({
   notImplementedModal: false
 })
 let modalZIndices = ref({
-  welcomeModal: 1,
+  welcomeModal: 2,
   contactModal: 1,
   reviewModal: 1,
   resumeModal: 1,

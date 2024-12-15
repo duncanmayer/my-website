@@ -216,7 +216,7 @@ export default {
   position: relative;
 }
 
-/* fix this later*/
+/* fix this later */
 .navContainer .dropdown {
   position: absolute;
   top: 100%;

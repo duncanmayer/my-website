@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import fruitLogo from '@/assets/fruit_logo.png'
+import fruitLogo from '@/assets/icons/fruit_logo.png'
 
 export default {
   name: 'localIcon',

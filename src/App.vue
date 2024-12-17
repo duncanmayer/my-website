@@ -218,6 +218,7 @@ const drawLoadingSquare = () => {
   }
   for (let i = 1; i < numIterations; i++) {
     // this is TEMPORARY until i can figure out an equation for it
+    // make this so that it's based off of File Icon's location.
     let tops = [30, 70, 90, 120, 140, 150, 150, 150, 150]
     let lefts = [70, 85, 100, 125, 150, 195, 230, 240, 250]
     setTimeout(() => {

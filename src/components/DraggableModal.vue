@@ -135,8 +135,10 @@ export default {
     }
   },
   created() {
+    // We want to randomly determine the location of the modal here (within reasonable bounds)
     document.addEventListener('mousemove', this.drag)
     document.addEventListener('mouseup', this.stopDrag)
+    console.log(`created modal`)
   },
   beforeUnmount() {
     document.removeEventListener('mousemove', this.drag)

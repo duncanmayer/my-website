@@ -131,7 +131,7 @@ import DoesNotExist from './assets/icons/sad_finder.png'
 
 let isModalVisible = ref({
   welcomeModal: true,
-  contactModal: false,
+  contactModal: true,
   reviewModal: false,
   resumeModal: false,
   notImplementedModal: false

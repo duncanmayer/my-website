@@ -43,6 +43,22 @@ export default {
       default: ''
     }
   },
+  watch: {
+    bounds: {
+      immediate: true,
+      handler(newBounds) {
+        this.updatePosition(newBounds);
+      },
+    },
+    isVisible: {
+      handler(newVal) {
+        if (newVal) {
+          this.position = this.positionByType[this.modalClass];
+        }
+      },
+      immediate: true
+    },
+  },
   data() {
     return {
       position: {
@@ -51,7 +67,13 @@ export default {
       },
       isDragging: false,
       dragOffset: { x: 0, y: 0 },
-      isEnlarged: false
+      isEnlarged: false,
+      positionByType: {
+        welcome: { x: 150, y: 100 },
+        contact: { x: 150, y: 100 },
+        review: { x: 150, y: 100 },
+
+      }
     }
   },
   methods: {
@@ -127,12 +149,16 @@ export default {
         // ensure that Y value is within screen bounds
         let newY = event.clientY - this.dragOffset.y
         newY = Math.max(navBarHeight + margin, newY)
-        newY = Math.min(this.bounds.bottom - selfBounds.height - (navBarHeight + paddingSize), newY)
+        newY = Math.min(this.bounds.bottom - selfBounds.height - (navBarHeight + paddingSize) + 4, newY)
 
         this.position.x = newX
         this.position.y = newY
-      }
-    }
+      } 
+    },
+    updatePosition(newBounds) {
+      this.positionByType.welcome = { x: 0.15 * newBounds.width , y : 0.19 * newBounds.height };
+      this.positionByType.contact = { x: 0.37 * newBounds.width , y : 0.10 * newBounds.height };
+    },
   },
   created() {
     // We want to randomly determine the location of the modal here (within reasonable bounds)

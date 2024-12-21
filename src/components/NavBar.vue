@@ -2,19 +2,21 @@
   <div class="navigationBar">
     <ul class="navContainer">
       <li class="navElement"><local-icon src="fruit_logo.png" width="20px" height="20px" /></li>
-      <li class="btn navElement">
-        <button
-          @click="toggleDropdown('fileDropdown')"
-          :class="{ highlighted: isHighlighted('fileDropdown') }"
-        >
-          File
-        </button>
-        <div v-if="activeDropdown === 'fileDropdown'" class="dropdown">
-          <button class="dropdownElement" @click="emit('toggleNotImplemented')">New</button>
-          <button class="dropdownElement" @click="emit('toggleNotImplemented')">Open</button>
-          <button class="dropdownElement" @click="emit('toggleNotImplemented')">Save</button>
-        </div>
-      </li>
+      <div v-if="false">
+        <li class="btn navElement">
+          <button
+            @click="toggleDropdown('fileDropdown')"
+            :class="{ highlighted: isHighlighted('fileDropdown') }"
+          >
+            File
+          </button>
+          <div v-if="activeDropdown === 'fileDropdown'" class="dropdown">
+            <button class="dropdownElement" @click="emit('toggleNotImplemented')">New</button>
+            <button class="dropdownElement" @click="emit('toggleNotImplemented')">Open</button>
+            <button class="dropdownElement" @click="emit('toggleNotImplemented')">Save</button>
+          </div>
+        </li>
+      </div>
       <div v-if="isInFile">
         <li class="btn navElement">
           <button

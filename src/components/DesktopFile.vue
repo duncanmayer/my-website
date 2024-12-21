@@ -2,7 +2,7 @@
   <div
     class="desktop-file"
     @mousedown.stop="startDrag"
-    :style="{ left: position.x + 'px', top: position.y + 'px' }"
+    :style="{ left: fixedPosition.x + 'px', top: fixedPosition.y + 'px' }"
     @click="detectClick"
   >
     <div class="file-image">
@@ -34,6 +34,7 @@ export default {
   data() {
     return {
       position: { x: 20, y: 40 },
+      fixedPosition: { x: 20, y: 40 },
       isDragging: false,
       dragOffset: { x: 0, y: 0 },
       fileIcon,

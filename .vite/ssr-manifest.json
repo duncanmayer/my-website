@@ -1,0 +1,177 @@
+{
+  "\u0000plugin-vue:export-helper": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "\u0000vite/modulepreload-polyfill.js": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "index.html": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "index.html?html-proxy&inline-css&index=1.css": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "node_modules/@unhead/dom/dist/index.mjs": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "node_modules/@unhead/shared/dist/index.mjs": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "node_modules/@unhead/vue/dist/shared/vue.f49591ad.mjs": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "node_modules/@vue/shared/dist/shared.esm-bundler.js": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "node_modules/hookable/dist/index.mjs": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "node_modules/unhead/dist/index.mjs": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "node_modules/vite-ssg/dist/client/single-page.mjs": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "node_modules/vite-ssg/dist/shared/vite-ssg.C6pK7rvr.mjs": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "node_modules/vite-ssg/dist/shared/vite-ssg.ETIvV-80.mjs": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/App.vue": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/App.vue?vue&type=style&index=0&scoped=f3136329&lang.css": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/assets/fileIcons/Text_Edit_48x48x32.png": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/assets/fileIcons/Text_Edit_48x48x32_Highlighted.png": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/assets/icons/fruit_logo.png": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/assets/icons/sad_finder.png": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/assets/main.css": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/assets/profiles/funnyfaceguy.png": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/components/DesktopFile.vue": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/components/DesktopFile.vue?vue&type=style&index=0&scoped=bbb6c704&lang.css": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/components/DraggableModal.vue": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/components/DraggableModal.vue?vue&type=style&index=0&scoped=a1a8f77f&lang.css": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/components/FileDisplay.vue": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/components/FileDisplay.vue?vue&type=style&index=0&scoped=d9077240&lang.css": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/components/NavBar.vue": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/components/NavBar.vue?vue&type=style&index=0&scoped=8160586f&lang.css": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/components/icons/IconLocal.vue": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/components/icons/IconLocal.vue?vue&type=style&index=0&scoped=0a88f64b&lang.css": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ],
+  "src/main.ts": [
+    "/assets/fruit_logo-raxBDqT4.png",
+    "/assets/sad_finder-B_NMd3tF.png",
+    "/assets/ChiKareGo-pCOcgVLU.ttf"
+  ]
+}

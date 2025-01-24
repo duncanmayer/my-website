@@ -133,7 +133,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="js">
 import { onBeforeMount, ref } from 'vue'
 import NavBar from './components/NavBar.vue'
 import DraggableModal from './components/DraggableModal.vue'
@@ -174,13 +174,10 @@ const updateDimensions = () => {
       right: rect.right,
       bottom: rect.bottom
     }
-    console.log(JSON.stringify(bounds.value))
-  } else {
-    console.log(`element not found`)
   }
 }
 
-const toggleModal = (modalType: string) => {
+const toggleModal = (modalType) => {
   isModalVisible.value[modalType] = !isModalVisible.value[modalType]
   if (isModalVisible.value[modalType]) {
     setNewZIndex(modalType)
@@ -189,7 +186,7 @@ const toggleModal = (modalType: string) => {
   }
 }
 
-const toggleFile = (file: string) => {
+const toggleFile = (file) => {
   // if you are opening the file, draw the animation
   // of the expanding box
   if (!isInFile.value) {
@@ -205,11 +202,11 @@ const toggleFile = (file: string) => {
   }
 }
 
-const getZIndex = (modalType: string) => {
+const getZIndex = (modalType) => {
   return modalZIndices.value[modalType]
 }
 
-const setNewZIndex = (modalType: string) => {
+const setNewZIndex = (modalType) => {
   const maxZIndex = Math.max(...Object.values(modalZIndices.value), 0)
   modalZIndices.value[modalType] = maxZIndex + 1
 }

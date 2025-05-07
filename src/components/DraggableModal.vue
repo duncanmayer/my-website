@@ -25,6 +25,7 @@
 
 <script>
 export default {
+  emits: ['close'],
   props: {
     isVisible: {
       type: Boolean,
@@ -72,7 +73,7 @@ export default {
         welcome: { x: 150, y: 100 },
         contact: { x: 150, y: 100 },
         review: { x: 150, y: 100 },
-
+        paint: { x: 150, y: 100 },
       }
     }
   },

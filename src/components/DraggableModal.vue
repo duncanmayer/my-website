@@ -74,6 +74,7 @@ export default {
         contact: { x: 150, y: 100 },
         review: { x: 150, y: 100 },
         paint: { x: 150, y: 100 },
+        notImplemented: { x: 150, y: 100 },
       }
     }
   },

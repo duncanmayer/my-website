@@ -1,12 +1,12 @@
 <template>
   <div
     v-if="isVisible"
-    :class="['modal', modalClass]"
+    :class="['dialog', dialogClass]"
     :style="{ left: position.x + 'px', top: position.y + 'px' }"
     @mousedown.stop
     @mousedown="startDrag"
   >
-    <div class="modal-header" @mousedown.stop @mousedown="startDrag">
+    <div class="dialog-header" @mousedown.stop @mousedown="startDrag">
       <div class="decorative-rectangle"></div>
       <h2>{{ title }}</h2>
       <div class="decorative-rectangle"></div>
@@ -15,8 +15,8 @@
         <button @click="expand">◰</button>
       </div>
     </div>
-    <div class="modal-wrapper">
-      <div class="modal-content">
+    <div class="dialog-wrapper">
+      <div class="dialog-content">
         <slot></slot>
       </div>
     </div>
@@ -25,6 +25,7 @@
 
 <script>
 export default {
+  emits: ['close'],
   props: {
     isVisible: {
       type: Boolean,
@@ -32,12 +33,12 @@ export default {
     },
     title: {
       type: String,
-      default: 'Modal Title'
+      default: 'Dialog Title'
     },
     bounds: {
       required: true
     },
-    modalClass: {
+    dialogClass: {
       type: String,
       required: true,
       default: ''
@@ -53,7 +54,7 @@ export default {
     isVisible: {
       handler(newVal) {
         if (newVal) {
-          this.position = this.positionByType[this.modalClass];
+          this.position = this.positionByType[this.dialogClass];
         }
       },
       immediate: true
@@ -72,7 +73,8 @@ export default {
         welcome: { x: 150, y: 100 },
         contact: { x: 150, y: 100 },
         review: { x: 150, y: 100 },
-
+        paint: { x: 150, y: 100 },
+        notImplemented: { x: 150, y: 100 }
       }
     }
   },
@@ -81,16 +83,16 @@ export default {
       this.$emit('close')
     },
     expand() {
-      const modal = document.querySelector(`.modal.${this.modalClass}`)
+      const dialog = document.querySelector(`.dialog.${this.dialogClass}`)
       let clientX = this.position.x
       let clientY = this.position.y
       let margin = 25
 
-      if (modal) {
+      if (dialog) {
         // needs to shrink
         if (this.isEnlarged) {
-          modal.style.width = `${0.6 * (this.bounds.right - this.bounds.left)}px`
-          modal.style.height = `${0.72 * (this.bounds.bottom - this.bounds.top)}px`
+          dialog.style.width = `${0.6 * (this.bounds.right - this.bounds.left)}px`
+          dialog.style.height = `${0.72 * (this.bounds.bottom - this.bounds.top)}px`
           this.isEnlarged = false
 
           // needs to expand
@@ -98,21 +100,21 @@ export default {
           let calcWidth = 0.7 * (this.bounds.right - this.bounds.left)
           let calcHeight = 0.82 * (this.bounds.bottom - this.bounds.top)
 
-          // check if modal expands past rightward bound
+          // check if dialog expands past rightward bound
           if (calcWidth + this.position.x > this.bounds.right - this.bounds.left) {
             clientX = this.bounds.right - this.bounds.left - calcWidth - margin
           }
 
-          // check if modal expands past downward bound
+          // check if dialog expands past downward bound
           if (calcHeight + this.position.y > this.bounds.bottom - this.bounds.top) {
             clientY = this.bounds.bottom - this.bounds.top - calcHeight - margin
           }
 
-          // force a rerender - found that modal would not immediately update size until
+          // force a rerender - found that dialog would not immediately update size until
           // an event triggered it.  We can either mimic mouse movement or rAF
           requestAnimationFrame(() => {
-            modal.style.width = `${calcWidth}px`
-            modal.style.height = `${calcHeight}px`
+            dialog.style.width = `${calcWidth}px`
+            dialog.style.height = `${calcHeight}px`
             this.position.x = clientX
             this.position.y = clientY
           })
@@ -131,14 +133,13 @@ export default {
     },
     drag(event) {
       if (this.isDragging) {
-        // Might be a bug here.  Select based on ModalClass prop rather than just modal class
-        // A result of all modals previously having fixed
-        const self = document.querySelector('.modal')
+        // Might be a bug here.  Select based on DialogClass prop rather than just dialog class
+        // A result of all dialogs previously having fixed
+        const self = document.querySelector('.dialog')
         const selfBounds = self.getBoundingClientRect()
 
         const margin = 1
         const navBarHeight = 25
-        const paddingSize = 50
 
         // note to self: fix this crazy calculation
         // ensure that X value is within screen bounds
@@ -149,7 +150,7 @@ export default {
         // ensure that Y value is within screen bounds
         let newY = event.clientY - this.dragOffset.y
         newY = Math.max(navBarHeight + margin, newY)
-        newY = Math.min(this.bounds.bottom - selfBounds.height - (navBarHeight + paddingSize) + 4, newY)
+        newY = Math.min((this.bounds.bottom - this.bounds.top) - selfBounds.height - 2 * margin, newY)
 
         this.position.x = newX
         this.position.y = newY
@@ -161,7 +162,7 @@ export default {
     },
   },
   created() {
-    // We want to randomly determine the location of the modal here (within reasonable bounds)
+    // We want to randomly determine the location of the dialog here (within reasonable bounds)
     document.addEventListener('mousemove', this.drag)
     document.addEventListener('mouseup', this.stopDrag)
   },
@@ -173,7 +174,7 @@ export default {
 </script>
 
 <style scoped>
-.modal {
+.dialog {
   background: lightgray;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 500px;
@@ -186,24 +187,24 @@ export default {
   color: black;
 }
 
-.modal-header {
+.dialog-header {
   display: flex;
   align-items: center;
   height: 30px;
   width: 100%;
 }
 
-.modal-header > h2 {
+.dialog-header > h2 {
   flex-shrink: 0;
   text-align: center;
   padding: 5px;
 }
 
-.modal-header .button-container {
+.dialog-header .button-container {
   display: flex;
 }
 
-.modal-header > div > button {
+.dialog-header > div > button {
   float: right;
   margin: 5px;
   margin-left: 0;
@@ -215,7 +216,7 @@ export default {
   box-shadow: 2px 2px 3px rgba(255, 255, 255, 0.6);
 }
 
-.modal-wrapper {
+.dialog-wrapper {
   border-top: 2px solid black;
   border-left: 2px solid black;
   border-bottom: 1px solid black;
@@ -230,7 +231,7 @@ export default {
   overflow-y: auto;
 }
 
-.modal-content {
+.dialog-content {
   padding: 2px;
   margin: 10px;
   margin-top: 30px;

@@ -41,7 +41,7 @@
             Tools
           </button>
           <div v-if="activeDropdown === 'toolsDropdown'" class="dropdown">
-            <button class="dropdownElement" @click="emit('toggleNotImplemented')">Paint</button>
+            <button class="dropdownElement" @click="emit('togglePaint')">Paint</button>
             <button class="dropdownElement" @click="emit('toggleNotImplemented')">Notes</button>
             <button class="dropdownElement" @click="emit('toggleNotImplemented')">Fun</button>
           </div>
@@ -74,6 +74,13 @@ import LocalIcon from './icons/IconLocal.vue'
 import profilePhoto from '../assets/profiles/funnyfaceguy.png'
 
 export default {
+
+  emits: ['toggleWelcome',
+          'toggleContact',
+          'toggleReview',
+          'togglePaint',
+          'toggleNotImplemented'],
+
   data: function () {
     return {
       activeDropdown: null,

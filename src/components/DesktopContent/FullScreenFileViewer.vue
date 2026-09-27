@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="isVisible"
-    :class="['modal', modalClass]"
+    :class="['dialog', dialogClass]"
     :style="{
       left: position.x + 'px',
       top: position.y + 'px',
@@ -9,7 +9,7 @@
       height: bounds.height - 45 + 'px'
     }"
   >
-    <div class="modal-header">
+    <div class="dialog-header">
       <div class="decorative-rectangle"></div>
       <h2>{{ title }}</h2>
       <div class="decorative-rectangle"></div>
@@ -17,8 +17,8 @@
         <button @click="close">X</button>
       </div>
     </div>
-    <div class="modal-wrapper">
-      <div class="modal-content">
+    <div class="dialog-wrapper">
+      <div class="dialog-content">
         <slot></slot>
       </div>
     </div>
@@ -34,12 +34,12 @@ export default {
     },
     title: {
       type: String,
-      default: 'Modal Title'
+      default: 'Dialog Title'
     },
     bounds: {
       required: true
     },
-    modalClass: {
+    dialogClass: {
       type: String,
       required: true,
       default: ''
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style scoped>
-.modal {
+.dialog {
   background: lightgray;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: absolute;
@@ -73,24 +73,24 @@ export default {
   color: black;
 }
 
-.modal-header {
+.dialog-header {
   display: flex;
   align-items: center;
   height: 30px;
   width: 100%;
 }
 
-.modal-header > h2 {
+.dialog-header > h2 {
   flex-shrink: 0;
   text-align: center;
   padding: 5px;
 }
 
-.modal-header .button-container {
+.dialog-header .button-container {
   display: flex;
 }
 
-.modal-header > div > button {
+.dialog-header > div > button {
   float: right;
   margin: 5px;
   margin-left: 0;
@@ -102,7 +102,7 @@ export default {
   box-shadow: 2px 2px 3px rgba(255, 255, 255, 0.6);
 }
 
-.modal-wrapper {
+.dialog-wrapper {
   border-top: 2px solid black;
   border-left: 2px solid black;
   border-bottom: 1px solid black;
@@ -117,7 +117,7 @@ export default {
   overflow-y: auto;
 }
 
-.modal-content {
+.dialog-content {
   padding: 2px;
   margin: 10px;
   margin-top: 30px;

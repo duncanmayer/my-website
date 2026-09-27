@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import fileIcon from '../assets/fileIcons/Text_Edit_48x48x32.png'
-import fileIconHighlighted from '../assets/fileIcons/Text_Edit_48x48x32_Highlighted.png'
+import fileIcon from '@/assets/fileIcons/Text_Edit_48x48x32.png'
+import fileIconHighlighted from '@/assets/fileIcons/Text_Edit_48x48x32_Highlighted.png'
 
 export default {
   props: {
@@ -65,7 +65,6 @@ export default {
         const selfBounds = self.getBoundingClientRect()
         const margin = 1
         const navBarHeight = 25
-        const paddingSize = 50
 
         let newX = event.clientX - this.dragOffset.x
         newX = Math.max(2, newX)
@@ -74,7 +73,7 @@ export default {
         let newY = event.clientY - this.dragOffset.y
         // account for height of nav bar
         newY = Math.max(navBarHeight + margin, newY)
-        newY = Math.min(this.bounds.bottom - selfBounds.height - (navBarHeight + paddingSize), newY)
+        newY = Math.min((this.bounds.bottom - this.bounds.top) - selfBounds.height - 2 * margin, newY)
 
         // this.position.x = event.clientX - this.dragOffset.x
         // this.position.y = event.clientY - this.dragOffset.y

@@ -1,44 +1,45 @@
 <template>
   <div class="app">
-    <NavBar class="navBar" :isInFile="isInFile" @toggleWelcome="toggleModal('welcomeModal')"
-      @toggleContact="toggleModal('contactModal')" @toggleReview="toggleModal('reviewModal')"
-      @togglePaint="toggleModal('paintModal')" @toggleNotImplemented="toggleModal('notImplementedModal')">
+    <NavBar class="navBar" :isInFile="isInFile" @toggleWelcome="toggleDialog('welcomeDialog')"
+      @toggleContact="toggleDialog('contactDialog')" @toggleReview="toggleDialog('reviewDialog')"
+      @togglePaint="toggleDialog('paintDialog')"
+      @toggleNotImplemented="toggleDialog('notImplementedDialog')">
     </NavBar>
 
     <!-- this is a cheesy way of mimicking the expanding squares that appear as a file is loading -->
     <div class="loadingSquare" v-if="isLoadingSquareVisible" :style="loadingSquareStyle"></div>
 
-    <DraggableModal modalClass="welcome" title="Welcome! How did you get here?" :isVisible="isModalVisible.welcomeModal"
-      :bounds="bounds" :style="{ zIndex: getZIndex('welcomeModal') }" @close="toggleModal('welcomeModal')"
-      @click="setNewZIndex('welcomeModal')">
+    <DraggableDialog dialogClass="welcome" title="Welcome! How did you get here?" :isVisible="isDialogVisible.welcomeDialog"
+      :bounds="bounds" :style="{ zIndex: getZIndex('welcomeDialog') }" @close="toggleDialog('welcomeDialog')"
+      @click="setNewZIndex('welcomeDialog')">
       <WelcomeContent />
-    </DraggableModal>
+    </DraggableDialog>
 
-    <DraggableModal modalClass="review" title="Review" :isVisible="isModalVisible.reviewModal" :bounds="bounds"
-      :style="{ zIndex: getZIndex('reviewModal') }" @close="toggleModal('reviewModal')"
-      @click="setNewZIndex('reviewModal')">
+    <DraggableDialog dialogClass="review" title="Review" :isVisible="isDialogVisible.reviewDialog" :bounds="bounds"
+      :style="{ zIndex: getZIndex('reviewDialog') }" @close="toggleDialog('reviewDialog')"
+      @click="setNewZIndex('reviewDialog')">
       <ReviewContent />
-    </DraggableModal>
+    </DraggableDialog>
 
-    <DraggableModal modalClass="notImplemented" title="Oops!  This isn't implemented yet"
-      :isVisible="isModalVisible.notImplementedModal" :bounds="bounds"
-      :style="{ zIndex: getZIndex('notImplementedModal') }" @close="toggleModal('notImplementedModal')"
-      @click="setNewZIndex('notImplementedModal')">
+    <DraggableDialog dialogClass="notImplemented" title="Oops!  This isn't implemented yet"
+      :isVisible="isDialogVisible.notImplementedDialog" :bounds="bounds"
+      :style="{ zIndex: getZIndex('notImplementedDialog') }" @close="toggleDialog('notImplementedDialog')"
+      @click="setNewZIndex('notImplementedDialog')">
       <iframe :src="DoesNotExist" style="width: 100%; height: 100%"> nothing here lol</iframe>
-    </DraggableModal>
+    </DraggableDialog>
 
-    <DraggableModal modalClass="contact" title="Contact Me!" :isVisible="isModalVisible.contactModal" :bounds="bounds"
-      :style="{ zIndex: getZIndex('contactModal') }" @close="toggleModal('contactModal')"
-      @click="setNewZIndex('contactModal')">
+    <DraggableDialog dialogClass="contact" title="Contact Me!" :isVisible="isDialogVisible.contactDialog" :bounds="bounds"
+      :style="{ zIndex: getZIndex('contactDialog') }" @close="toggleDialog('contactDialog')"
+      @click="setNewZIndex('contactDialog')">
       <ContactContent />
-    </DraggableModal>
+    </DraggableDialog>
 
-    <DesktopFile :bounds="bounds" fileName="DuncanResume.pdf" @openFile="toggleFile('resumeModal')">
-    </DesktopFile>
+    <DesktopFileIcon :bounds="bounds" fileName="DuncanResume.pdf" @openFile="toggleFile('resumeDialog')">
+    </DesktopFileIcon>
 
-    <FileDisplay modalClass="resume" title="My Resume" :bounds="bounds" :isVisible="isModalVisible.resumeModal"
-      :style="{ zIndex: getZIndex('resumeModal') }" @close="toggleFile('resumeModal')"
-      @click="setNewZIndex('resumeModal')">
+    <FileDisplay dialogClass="resume" title="My Resume" :bounds="bounds" :isVisible="isDialogVisible.resumeDialog"
+      :style="{ zIndex: getZIndex('resumeDialog') }" @close="toggleFile('resumeDialog')"
+      @click="setNewZIndex('resumeDialog')">
       <iframe src="/files/Duncan_Mayer_Resume.pdf#toolbar=0&view=FitH" style="
           font-size: 25px;
           overflow-y: auto;
@@ -50,42 +51,42 @@
       </iframe>
     </FileDisplay>
 
-    <DraggableModal modalClass="paint" title="Paint Tool" :isVisible="isModalVisible.paintModal" :bounds="bounds"
-      :style="{ zIndex: getZIndex('paintModal') }" @close="toggleModal('paintModal')"
-      @click="setNewZIndex('paintModal')">
+    <DraggableDialog dialogClass="paint" title="Paint Tool" :isVisible="isDialogVisible.paintDialog" :bounds="bounds"
+      :style="{ zIndex: getZIndex('paintDialog') }" @close="toggleDialog('paintDialog')"
+      @click="setNewZIndex('paintDialog')">
       <div>
         <h2>blah</h2>
       </div>
-    </DraggableModal>
+    </DraggableDialog>
   </div>
 </template>
 
 <script setup lang="js">
 import { onBeforeMount, ref } from 'vue'
 import NavBar from './components/NavBar.vue'
-import DraggableModal from './components/DraggableModal.vue'
-import FileDisplay from './components/FileDisplay.vue'
-import DesktopFile from './components/DesktopFile.vue'
+import DraggableDialog from './components/DraggableDialog.vue'
+import FileDisplay from './components/DesktopContent/FullScreenFileViewer.vue'
+import DesktopFileIcon from './components/DesktopContent/DesktopFileIcon.vue'
 import DoesNotExist from './assets/icons/sad_finder.png'
-import ReviewContent from './components/ModalContent/ReviewContent.vue'
-import ContactContent from './components/ModalContent/ContactContent.vue'
-import WelcomeContent from './components/ModalContent/WelcomeContent.vue'
+import ReviewContent from './components/NavBarContent/ReviewContent.vue'
+import ContactContent from './components/NavBarContent/ContactContent.vue'
+import WelcomeContent from './components/NavBarContent/WelcomeContent.vue'
 
-let isModalVisible = ref({
-  welcomeModal: true,
-  contactModal: true,
-  reviewModal: false,
-  resumeModal: false,
-  notImplementedModal: false,
-  paintModal: false,
+let isDialogVisible = ref({
+  welcomeDialog: true,
+  contactDialog: true,
+  reviewDialog: false,
+  resumeDialog: false,
+  notImplementedDialog: false,
+  paintDialog: false,
 })
-let modalZIndices = ref({
-  welcomeModal: 2,
-  contactModal: 1,
-  reviewModal: 1,
-  resumeModal: 1,
-  notImplementedModal: 1,
-  paintModal: 1,
+let dialogZIndices = ref({
+  welcomeDialog: 2,
+  contactDialog: 1,
+  reviewDialog: 1,
+  resumeDialog: 1,
+  notImplementedDialog: 1,
+  paintDialog: 1,
 })
 let bounds = ref({ width: 0, height: 0, top: 0, left: 0, right: 0, bottom: 0 })
 let isInFile = ref(false)
@@ -109,13 +110,13 @@ const updateDimensions = () => {
   }
 }
 
-const toggleModal = (modalType) => {
-  isModalVisible.value[modalType] = !isModalVisible.value[modalType]
-  if (isModalVisible.value[modalType]) {
-    setNewZIndex(modalType)
-    console.log(`setting new z index for ${modalType}`)
+const toggleDialog = (dialogType) => {
+  isDialogVisible.value[dialogType] = !isDialogVisible.value[dialogType]
+  if (isDialogVisible.value[dialogType]) {
+    setNewZIndex(dialogType)
+    console.log(`setting new z index for ${dialogType}`)
   } else {
-    modalZIndices.value[modalType] = 0
+    dialogZIndices.value[dialogType] = 0
   }
 }
 
@@ -126,22 +127,22 @@ const toggleFile = (file) => {
     drawLoadingSquare()
     setTimeout(() => {
       isInFile.value = !isInFile.value
-      toggleModal(file)
+      toggleDialog(file)
     }, 700)
   } // don't render animation on closing file
   else {
     isInFile.value = !isInFile.value
-    toggleModal(file)
+    toggleDialog(file)
   }
 }
 
-const getZIndex = (modalType) => {
-  return modalZIndices.value[modalType]
+const getZIndex = (dialogType) => {
+  return dialogZIndices.value[dialogType]
 }
 
-const setNewZIndex = (modalType) => {
-  const maxZIndex = Math.max(...Object.values(modalZIndices.value), 0)
-  modalZIndices.value[modalType] = maxZIndex + 1
+const setNewZIndex = (dialogType) => {
+  const maxZIndex = Math.max(...Object.values(dialogZIndices.value), 0)
+  dialogZIndices.value[dialogType] = maxZIndex + 1
 }
 
 const drawLoadingSquare = () => {

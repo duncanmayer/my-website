@@ -75,7 +75,11 @@ import profilePhoto from '../assets/profiles/funnyfaceguy.png'
 
 export default {
 
-  emits: ['toggleWelcome', 'toggleContact', 'toggleReview', 'togglePaint', 'toggleNotImplemented'],
+  emits: ['toggleWelcome',
+          'toggleContact',
+          'toggleReview',
+          'togglePaint',
+          'toggleNotImplemented'],
 
   data: function () {
     return {
